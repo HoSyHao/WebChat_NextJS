@@ -1,0 +1,10 @@
+Front End: React
+Back End: Express/ Flask
+CSS: Bootstrap/ Tailwind
+Database: PostgreSQL/ MongoDB
+Web server: Nginx
+Test: Googletest/ Jest/ Selenium/ Postman
+Devops: Linux, Docker
+Cloud: Aws
+CI/ CD: Jenkins/ Terraform/ Ansible
+Bonus: Git
