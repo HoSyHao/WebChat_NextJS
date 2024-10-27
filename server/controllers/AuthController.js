@@ -123,18 +123,20 @@ export const forgotPassword = async (request, response) => {
       from: "bloodarmour1@gmail.com",
       to: email,
       subject: "Reset Password",
-      text: `http://localhost:5173/resetPassword/${token}`,
+      text: `http://localhost:3000/auth/reset-password/${token}`,
     };
 
-    transporter.sendMail(mailOptions, function (error) {
+    // Gửi email
+    transporter.sendMail(mailOptions, (error) => {
       if (error) {
-        return response.json({ status: false, message: "error sending email" });
-      } else {
-        return response.json({ status: true, message: "email sent" });
+        console.error("Error sending email:", error); // In ra lỗi nếu có
+        return response.status(500).json({ status: false, message: "Error sending email" });
       }
+      return response.status(200).json({ status: true, message: "Email sent" });
     });
   } catch (error) {
-    console.log(error);
+    console.error("Error in forgotPassword:", error); // In ra lỗi nếu có
+    return response.status(500).json({ status: false, message: "Internal server error" });
   }
 };
 

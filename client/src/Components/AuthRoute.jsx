@@ -1,13 +1,28 @@
 /* eslint-disable react/react-in-jsx-scope */
-/* eslint-disable react/prop-types */
-import { Navigate } from 'react-router-dom';
+// components/AuthRoute.jsx
+import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
-const AuthRoute = ({ element: Component }) => {
-  const { user } = useSelector((state) => state.auth);
+const AuthRoute = (WrappedComponent) => {
+  const Wrapper = (props) => {
+    const router = useRouter();
+    const { user } = useSelector((state) => state.auth);
 
-  // Nếu người dùng đã đăng nhập, điều hướng đến home
-  return user ? <Navigate to="/home" replace /> : <Component />;
+    useEffect(() => {
+      if (user) {
+        router.push('../../chat/home');
+      }
+    }, [user, router]);
+
+    if (user) {
+      return null;
+    }
+
+    return <WrappedComponent {...props} />;
+  };
+
+  return Wrapper;
 };
 
 export default AuthRoute;

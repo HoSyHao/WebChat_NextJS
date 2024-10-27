@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { IoArrowBack } from "react-icons/io5";
 import { Avatar, AvatarImage } from "@/Components/ui/Avatar";
@@ -24,9 +23,11 @@ import {
 } from "@/Features/authSlice";
 import * as Yup from "yup";
 import { HOST } from "@/Utils/constants";
+import { useRouter } from "next/router";
+import PrivateRoute from '@/components/PrivateRoute';
 
 function Profile() {
-  const navigate = useNavigate();
+  const router = useRouter();
   const dispatch = useDispatch();
   const {
     user,
@@ -86,7 +87,7 @@ function Profile() {
 
       const data = await dispatch(updateProfile(payload)).unwrap();
       dispatch(setUserInfo(data.user));
-      navigate("/home");
+      router.push("../chat/home");
       toast.success("User Profile updated successfully!");
     } catch (error) {
       console.error("Failed to update profile:", error);
@@ -96,7 +97,7 @@ function Profile() {
 
   const handleNavigate = () => {
     if (user.profileSetup) {
-      navigate("/home");
+      router.push("../chat/home");
     } else {
       toast.error("Please setup profile to continue.");
     }
@@ -274,4 +275,4 @@ function Profile() {
   );
 }
 
-export default Profile;
+export default PrivateRoute(Profile);

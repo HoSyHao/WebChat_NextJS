@@ -21,10 +21,11 @@ import {
   AlertDialogCancel,
   AlertDialogAction,
 } from "@/components/ui/alert-dialog";
+import AuthRoute from '@/components/AuthRoute';
 
 const ForgotPassword = () => {
   const dispatch = useDispatch();
-  const navigate = useRouter();
+  const router = useRouter();
 
   const { alertDialogOpen} = useSelector((state) => state.auth)
 
@@ -48,7 +49,7 @@ const ForgotPassword = () => {
 
   const handleCloseDialog = () => {
     dispatch(closeAlertDialog());
-    navigate("/login");
+    router.push("/auth/login");
   }
 
   return (
@@ -81,4 +82,4 @@ const ForgotPassword = () => {
   );
 };
 
-export default ForgotPassword;
+export default AuthRoute(ForgotPassword);

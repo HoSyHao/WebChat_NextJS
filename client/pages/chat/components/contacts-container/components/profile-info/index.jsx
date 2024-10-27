@@ -11,11 +11,11 @@ import {
 } from "@/components/ui/tooltip";
 import { FiEdit2 } from "react-icons/fi";
 import { IoPowerSharp} from "react-icons/io5";
-import { useNavigate } from "react-router-dom";
 import { logout } from "@/Features/authSlice";
+import { useRouter } from "next/router";
 
 const ProfileInfo = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
 
@@ -23,7 +23,7 @@ const ProfileInfo = () => {
     dispatch(logout())
       .then((action) => {
         if (action.meta.requestStatus === "fulfilled") {
-          navigate("/login");
+          router.push("/auth/login");
         }
         console.log(action);
       })
@@ -66,7 +66,7 @@ const ProfileInfo = () => {
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger>
-              <FiEdit2 className="text-purple-500 text-xl font-medium" onClick={()=>navigate("/profile")}/>
+              <FiEdit2 className="text-purple-500 text-xl font-medium" onClick={()=>router.push("../../../profile/profile")}/>
             </TooltipTrigger>
             <TooltipContent className="bg-[#1c1b1e] border-none text-white">
               <p>Edit Profile</p>

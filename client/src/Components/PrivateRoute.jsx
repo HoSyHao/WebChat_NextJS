@@ -1,38 +1,43 @@
 /* eslint-disable react/react-in-jsx-scope */
-/* eslint-disable react/prop-types */
-import { Navigate, useLocation } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { logout, verify } from '../Features/authSlice';
+// components/PrivateRoute.jsx
 import { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { useSelector, useDispatch } from 'react-redux';
+import { verify, logout } from '../Features/authSlice';
 
-const PrivateRoute = ({ element: Component }) => {
-  const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.auth);
-  const location = useLocation();
+const PrivateRoute = (WrappedComponent) => {
+  const Wrapper = (props) => {
+    const router = useRouter();
+    const dispatch = useDispatch();
+    const { user } = useSelector((state) => state.auth);
 
-  useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        await dispatch(verify()).unwrap();
-      } catch (error) {
-        console.log('Failed to verify:', error);
-        // Nếu xác thực thất bại, thực hiện logout và điều hướng đến trang đăng nhập
-        dispatch(logout());
-      }
-    };
+    useEffect(() => {
+      const checkAuth = async () => {
+        try {
+          await dispatch(verify()).unwrap();
+        } catch (error) {
+          console.log('Failed to verify:', error);
+          dispatch(logout());
+          router.push('/auth/login');
+        }
+      };
 
-    checkAuth();
-  }, [dispatch]);
+      checkAuth();
+    }, [dispatch, router]);
 
-  if (!user) {
-    return <Navigate to="/login" replace />;
-  }
+    if (!user) {
+      return null; // Hoặc một loading component
+    }
 
-  if (!user.profileSetup && location.pathname !== "/profile") {
-    return <Navigate to="/profile" replace />;
-  }
+    if (!user.profileSetup && router.pathname !== '../../profile/profile') {
+      router.push('../../profile/profile');
+      return null;
+    }
 
-  return <Component />;
+    return <WrappedComponent {...props} />;
+  };
+
+  return Wrapper;
 };
 
 export default PrivateRoute;

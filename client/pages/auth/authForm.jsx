@@ -9,8 +9,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import * as Yup from 'yup';
 
-import Background from "@/assets/login2.png";
-import Victory from "@/assets/victory.svg";
+
 import { clearStatus } from "@/Features/authSlice";
 import { toast } from "sonner";
 import { useEffect } from "react";
@@ -79,7 +78,7 @@ const AuthForm = ({ onSubmit }) => {
           <div className="flex items-center justify-center flex-col">
             <div className="flex items-center justify-center">
               <h1 className="text-5xl font-bold md:text-6xl">Welcome</h1>
-              <img src={Victory} alt="Viectory Emoji" className="h-[100px]" />
+              <img src="/assets/victory.svg" alt="Viectory Emoji" className="h-[100px]" />
             </div>
             <p className="font-medium text-center">
               Fill in the details to get started with the best chat app!
@@ -195,7 +194,8 @@ const AuthForm = ({ onSubmit }) => {
           </div>
         </div>
         <div className="hidden xl:flex justify-center items-center pb-2">
-              <img src={Background} alt="background login" className="h-[590px]"/>
+          <img src="/assets/login2.png" alt="background login" className="h-[590px]" />
+
         </div>
       </div>
     </div>

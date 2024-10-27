@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import Cookies from "js-cookie";
 import { apiClient } from "@/lib/api-client.js";
 import {
   SIGNUP_ROUTE,
@@ -279,7 +278,7 @@ const authSlice = createSlice({
     },
     setIsImageDeleted: (state, action) => {
       state.isImageDeleted = action.payload;
-    },
+    },  
   },
 
   extraReducers: (builder) => {
@@ -352,6 +351,7 @@ const authSlice = createSlice({
       // Verify
       .addCase(verify.pending, (state) => {
         state.status = "loading";
+        state.error = null;
       })
       .addCase(verify.fulfilled, (state, action) => {
         state.status = "succeeded";

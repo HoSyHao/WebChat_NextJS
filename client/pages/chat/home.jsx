@@ -1,9 +1,10 @@
 /* eslint-disable react/react-in-jsx-scope */
 import {  useSelector } from "react-redux";
-import "../../assets/App.css";
+
 import EmptyChatContainer from "./components/empty-chat-container";
 import ContactsContainer from "./components/contacts-container";
 import ChatContainer from "./components/chat-container";
+import PrivateRoute from '@/components/PrivateRoute';
 
 const Home = () => {
   const { 
@@ -39,4 +40,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default PrivateRoute(Home);

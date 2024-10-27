@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { setRegisterForm , clearError, signup} from '../../Features/authSlice';
+import { setRegisterForm , clearError, signup} from '../../src/Features/authSlice';
 import AuthForm from './authForm';
 import { useRouter } from 'next/router';
+import AuthRoute from '@/components/AuthRoute';
 
 const Register = () => {
     const dispatch = useDispatch();
@@ -17,7 +18,7 @@ const Register = () => {
       dispatch(signup(values))
       .then((action) =>{
         if( action.meta.requestStatus === 'fulfilled' && action.payload.status) {
-          router.push('/profile');
+          router.push('/profile/profile');
         }
       }).catch(err => {
         console.log("Failed to sign in:",err);
@@ -29,4 +30,4 @@ const Register = () => {
   )
 }
 
-export default Register
+export default AuthRoute(Register)

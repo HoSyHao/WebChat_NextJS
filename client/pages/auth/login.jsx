@@ -1,14 +1,16 @@
 /* eslint-disable react/react-in-jsx-scope */
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { setLoginForm, signin, clearError, setUserInfo } from '../../src/Features/authSlice';
+import { setLoginForm, signin, clearError, setUserInfo } from '@/Features/authSlice';
 import AuthForm from './authForm';
 import { useRouter } from 'next/router';
+import AuthRoute from '@/components/AuthRoute';
+
 
 
 const Login = () => {
     const dispatch = useDispatch();
-    const navigate = useRouter();
+    const router = useRouter();
 
     useEffect(() => {
         dispatch(setLoginForm());
@@ -21,8 +23,8 @@ const Login = () => {
           .then((data) => {
             dispatch(setUserInfo(data.users))
             if (data.users.id) {
-              if(data.users.profileSetup) {navigate("/home")}
-                else navigate("/profile")
+              if(data.users.profileSetup) {router.push("/chat/home")}
+                else router.push("/profile/profile")
             }
           })
           .catch((error) =>{
@@ -36,4 +38,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default AuthRoute(Login);
