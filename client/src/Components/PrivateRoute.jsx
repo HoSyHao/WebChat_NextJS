@@ -29,8 +29,8 @@ const PrivateRoute = (WrappedComponent) => {
       return null; // Hoặc một loading component
     }
 
-    if (!user.profileSetup && router.pathname !== '../../profile/profile') {
-      router.push('../../profile/profile');
+    if (!user.profileSetup && router.pathname !== '/profile/profile') {
+      router.push('/profile/profile');
       return null;
     }
 

@@ -25,10 +25,20 @@ self.__BUILD_MANIFEST = {
       "static/chunks/main.js",
       "static/chunks/pages/auth/login.js"
     ],
+    "/auth/register": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/auth/register.js"
+    ],
     "/chat/home": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
       "static/chunks/pages/chat/home.js"
+    ],
+    "/profile/profile": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/profile/profile.js"
     ]
   },
   "ampFirstPages": []

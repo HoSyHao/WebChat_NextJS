@@ -11,7 +11,7 @@ const AuthRoute = (WrappedComponent) => {
 
     useEffect(() => {
       if (user) {
-        router.push('../../chat/home');
+        router.push('/chat/home');
       }
     }, [user, router]);
 
